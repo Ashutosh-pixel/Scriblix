@@ -15,7 +15,7 @@ export default function FoldersPage() {
   }, [folderArray])
 
   return (
-    <div className="w-4/5 flex flex-col items-center">
+    <div className="w-4/5 flex flex-col items-center relative">
         <FolderPageHader/>
         <FoldersContainer/>
         <NewFolderButton/>

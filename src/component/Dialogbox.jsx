@@ -1,12 +1,33 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import useStore from '../store/Store';
 
 
 export default function Dialogbox() {
 
     const [foldername, setFoldername] = useState('');
+    const [offScreenBottom, setOffScreenBottom] = useState(0);
+    const [move, setMove] = useState(false);
+
+
     const setIsFolderOpen = useStore((state) => state.setIsFolderOpen);
     const addFolder = useStore((state) => state.addFolder);
+
+
+    useEffect(() => {
+        // Get the viewport height dynamically
+        const viewport = window.innerHeight;
+
+        // Calculate starting position (just below the screen)
+        const offscreenposition = viewport*0.5;
+
+        // Set the calculated bottom position
+        setOffScreenBottom(-offscreenposition);
+
+        console.log(offScreenBottom);
+        
+
+        setTimeout(() => setMove(true), 100);
+    }, [])
   
     const onOkHandler = () => {
         const trimfolder = foldername.trim();
@@ -16,7 +37,8 @@ export default function Dialogbox() {
     }
 
     return (
-    <div className='dialogbox w-full flex items-center flex-col bg-white rounded-3xl mt-2 select-none'>
+    <div className='dialogbox w-full flex items-center flex-col bg-white rounded-3xl mt-2 select-none absolute transition-bottom transform duration-300 ease-linear' 
+    style={{ bottom: `${offScreenBottom}px` }}>
         <div className='mt-3 m-2'>New folder</div>
         <form action="" onSubmit={(e) => e.preventDefault()}>
             <input type="text" 
