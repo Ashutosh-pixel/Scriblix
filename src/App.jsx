@@ -13,7 +13,7 @@ function App() {
 
 
   return (
-    <div className="w-screen h-screen m-0 p-0 box-border overflow-x-hidden">
+    <div className="w-screen h-screen m-0 p-0 box-border overflow-x-hidden bg-gray-100">
       <div className="parent w-full flex flex-col items-center mt-8">
         {categoryclicked ? <FoldersPage/> : <><NavBar />
         <div className="w-4/5 flex flex-col items-center">

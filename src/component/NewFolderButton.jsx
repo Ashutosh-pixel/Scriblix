@@ -6,6 +6,8 @@ export default function NewFolderButton() {
   const setIsFolderOpen = useStore((state) => state.setIsFolderOpen);
 
   return (
-    <div onClick={() => setIsFolderOpen(true)}>NewFolderButton</div>
+    <div>
+      <button onClick={() => setIsFolderOpen(true)}>NewFolderButton</button>
+    </div>
   )
 }
