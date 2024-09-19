@@ -1,20 +1,15 @@
-import React, { useEffect } from "react";
+import React from "react";
 import useStore from "../store/Store";
+import { NavLink } from "react-router-dom";
 
 export default function Categories() {
 
-    const categoryclicked = useStore((state) => state.categoryclicked);
-    const setCategoryclicked = useStore((state) => state.setCategoryclicked);
+    const folderArray = useStore((state) => state.folderArray);
 
-    const clickHandler = () => {
-        setCategoryclicked();
-    }
-
-    useEffect(()=> {
-        console.log('categoryclicked', categoryclicked)
-    }, [categoryclicked])
-
-    return <div>
-        <button onClick={clickHandler}>button</button>
+    return <div className="foldercategory flex w-full">
+        {folderArray.map((item, index) => {
+            return <div key={index}>{item}</div>
+        })}
+        <NavLink to={'/folderpage'}>button</NavLink>
     </div>;
 }

@@ -1,28 +1,18 @@
 import "./App.css";
-import NavBar from "./component/NavBar";
-import SearchBar from "./component/SearchBar";
-import NotesContainer from "./component/NotesContainer";
-import Categories from "./component/Categories";
-import Optional from "./component/Optional";
-import useStore from "./store/Store";
-import FoldersPage from "./page/FoldersPage";
+import { Route, Routes } from "react-router-dom";
+import HomePage from './page/HomePage';
+import FoldersPage from './page/FoldersPage';
 
 function App() {
-
-  const categoryclicked = useStore((state) => state.categoryclicked);
-
-
   return (
-    <div className="w-screen h-screen m-0 p-0 box-border overflow-x-hidden bg-gray-100">
-      <div className="parent w-full flex flex-col items-center mt-8">
-        {categoryclicked ? <FoldersPage/> : <><NavBar />
-        <div className="w-4/5 flex flex-col items-center">
-          <SearchBar />
-          <Categories />
-          <NotesContainer />
-          <Optional />          
-        </div></>}
-        
+    <div className="container w-screen h-screen m-0 p-0 box-border overflow-hidden bg-gray-100">
+      <div className="parent w-full flex flex-col items-center mt-8 h-full">
+        <Routes>
+          <Route path="/" element={<HomePage />}>
+          </Route>
+          <Route path="/folderpage" element={<FoldersPage />}>
+          </Route>
+        </Routes>
       </div>
     </div>
   );
