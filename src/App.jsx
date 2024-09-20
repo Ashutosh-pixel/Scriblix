@@ -5,7 +5,7 @@ import FoldersPage from './page/FoldersPage';
 
 function App() {
   return (
-    <div className="container w-screen h-screen m-0 p-0 box-border overflow-hidden bg-gray-100">
+    <div className="w-screen h-screen m-0 p-0 box-border overflow-hidden bg-gray-100">
       <div className="parent w-full flex flex-col items-center mt-8 h-full">
         <Routes>
           <Route path="/" element={<HomePage />}>
