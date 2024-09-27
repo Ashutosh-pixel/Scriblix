@@ -29,15 +29,18 @@ export default function FoldersContainer() {
   };
 
   return (
-    <div className='folderscontainer mt-4 w-full flex flex-col gap-2 select-none'>
+    <div className='folderscontainer mt-4 w-full flex gap-2 select-none flex-wrap'>
       {folderArray.map((item, index) => {
-        return <div key={index} className='parent w-full bg-white rounded-md h-10 flex justify-center items-center shadow-md cursor-pointer'>
-          <span className='w-28 flex justify-between items-center'>
-            <input value={item} onChange={(e) => clickHandler(e, index)} readOnly={!isEditable[index]} className='w-full' type="text" name="" id="" />
-          </span>
-          <span className='text-sm' onClick={() => toggleEditable(index, item)}>
-            {isEditable[index] ? 'Save' : 'Rename'}
-          </span>
+        return <div key={index} className='parent w-1/6 bg-white rounded-md h-52 flex flex-col justify-evenly items-center shadow-md cursor-pointer'>
+          <img className='w-32' src="/src/assets/foldericon.png" alt="" />
+          <div className='flex items-center justify-center gap-2'>
+            <span className='foldername w-2/3'>
+              <input className={`w-full text-center ${isEditable[index] ? 'focus:outline-none border-b border-transparent focus:border-orange-400' : 'border-transparent cursor-pointer'} focus:outline-none`} value={!isEditable[index] ? item.trim() : item} placeholder={!item ? "Untitled" : ""} onChange={(e) => clickHandler(e, index)} readOnly={!isEditable[index]} type="text" name="" id="" />
+            </span>
+            <span onClick={() => toggleEditable(index, item)}>
+              {isEditable[index] ? 'S' : ':'}
+            </span>
+          </div>
         </div>
       })}
     </div >
