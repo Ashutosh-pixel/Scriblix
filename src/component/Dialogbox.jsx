@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import useStore from '../store/Store';
+import { BaseDirectory, createDir } from '@tauri-apps/api/fs';
 
 export default function Dialogbox() {
     const [foldername, setFoldername] = useState('');
@@ -28,7 +29,17 @@ export default function Dialogbox() {
         setFoldername(trimfolder);
         if (trimfolder !== '') addFolder(trimfolder);
         setIsFolderOpen(false);
+        createDirectory(trimfolder);
     };
+
+    async function createDirectory(folder) {
+        try {
+            await createDir(`noteapp/folder/${folder}`, { dir: BaseDirectory.Home, recursive: true });
+            console.log('Directory created successfully!');
+        } catch (error) {
+            console.error('Failed to create directory:', error);
+        }
+    }
 
     return (
         <>

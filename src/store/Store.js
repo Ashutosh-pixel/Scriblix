@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 const useStore = create((set) => ({
-    folderArray: ['All'],
+    folderArray: [],
     categoryclicked: false,
     isfolderopen: false,
     selectedcategory: "All",

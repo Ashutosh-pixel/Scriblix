@@ -10,7 +10,7 @@ export default function FoldersPage() {
   const folderArray = useStore((state) => state.folderArray);
 
   useEffect(() => {
-    console.log('folderArray', folderArray);
+    // console.log('folderArray', folderArray);
   }, [folderArray]);
 
   return (
