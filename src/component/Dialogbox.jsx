@@ -9,29 +9,33 @@ export default function Dialogbox() {
 
     const setIsFolderOpen = useStore((state) => state.setIsFolderOpen);
     const addFolder = useStore((state) => state.addFolder);
+    let foldersMap = useStore((state) => state.foldersMap);
 
     useEffect(() => {
-        // Get the viewport height dynamically
         const viewport = window.innerHeight;
-
-        // Calculate starting position (just below the screen)
         const offscreenposition = viewport * 0.4;
-
-        // Set the calculated bottom position
         setOffScreenBottom(offscreenposition);
-
-        // Delay movement to trigger animation
         setTimeout(() => setMove(true), 100);
     }, []);
 
+
+    // folder name button
     const onOkHandler = () => {
         const trimfolder = foldername.trim();
         setFoldername(trimfolder);
-        if (trimfolder !== '') addFolder(trimfolder);
+        if (trimfolder !== '' && !foldersMap.has(trimfolder)) {
+            foldersMap.set(trimfolder, 1);
+            createDirectory(trimfolder);
+            addFolder(trimfolder);
+        }
+        else {
+            console.log('folder already exists');
+        }
         setIsFolderOpen(false);
-        createDirectory(trimfolder);
     };
 
+
+    // create folders in local storage
     async function createDirectory(folder) {
         try {
             await createDir(`noteapp/folder/${folder}`, { dir: BaseDirectory.Home, recursive: true });

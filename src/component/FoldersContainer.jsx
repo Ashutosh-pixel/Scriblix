@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react'
 import useStore from '../store/Store';
 import { useNavigate } from 'react-router-dom';
 import { event } from '@tauri-apps/api';
-import { createDir, BaseDirectory, renameFile } from '@tauri-apps/api/fs';
+import { createDir, BaseDirectory, renameFile, readDir } from '@tauri-apps/api/fs';
 
 export default function FoldersContainer() {
 
   let folderArray = useStore((state) => state.folderArray);
+  const addFolder = useStore((state) => state.addFolder);
+  const foldersMap = useStore((state) => state.foldersMap);
 
 
   const [isEditable, setIsEditable] = useState(Array(folderArray.length).fill(false));
-  const [duplicateArray, setDuplicateArray] = useState(['All']);
+  const [duplicateArray, setDuplicateArray] = useState([]);
 
   const [oldpath, setOldpath] = useState('');
   let [newpath, setNewpath] = useState('');
@@ -23,23 +25,52 @@ export default function FoldersContainer() {
     folderArray[index] = e.target.value;
   }
 
+
+  // rename button 
   const toggleEditable = (index, item) => {
     const updatedEditableState = [...isEditable];
-    updatedEditableState[index] = !updatedEditableState[index];  // Toggle the specific item's editability
+    updatedEditableState[index] = !updatedEditableState[index];
     setIsEditable(updatedEditableState);
     folderArray[index] = item.trim();
     if (!isEditable[index]) {
       setOldpath(folderArray[index]);
     }
     else {
-      newpath = folderArray[index];
-      setNewpath(newpath);
-      console.log(oldpath, newpath);
-
-      renameFolder(oldpath, newpath);
+      if (!foldersMap.has(folderArray[index])) {
+        foldersMap.delete(oldpath);
+        newpath = folderArray[index];
+        setNewpath(newpath);
+        renameFolder(oldpath, newpath);
+        console.log(folderArray);
+        foldersMap.set(folderArray[index], 1);
+      }
+      else {
+        console.log("already exists");
+        folderArray[index] = oldpath;
+      }
     }
-
   };
+
+
+  // render the all folders names from local storage
+  async function getAllFolders() {
+    try {
+      const entries = await readDir('noteapp/folder/', { dir: BaseDirectory.Home, recursive: true });
+      entries.forEach(folder => {
+        if (!foldersMap.has(folder.name)) {
+          addFolder(folder.name);
+          foldersMap.set(folder.name, 1);
+          console.log('Folder name:', folder);
+        }
+      });
+    } catch (error) {
+      console.log('Error in reading folder name', error);
+    }
+  }
+
+  useEffect(() => {
+    getAllFolders();
+  }, [])
 
   async function renameFolder(oldfoldername, newfoldername) {
     try {

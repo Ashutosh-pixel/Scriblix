@@ -5,6 +5,7 @@ const useStore = create((set) => ({
     categoryclicked: false,
     isfolderopen: false,
     selectedcategory: "All",
+    foldersMap: new Map(),
     setCategoryclicked: () => set((state) => ({ categoryclicked: !state.categoryclicked })),
     addFolder: (newfolder) => set((state) => ({ folderArray: [...state.folderArray, newfolder] })),
     setIsFolderOpen: () => set((state) => ({ isfolderopen: !state.isfolderopen })),

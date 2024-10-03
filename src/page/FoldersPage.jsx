@@ -7,11 +7,7 @@ import useStore from '../store/Store';
 
 export default function FoldersPage() {
   const isfolderopen = useStore((state) => state.isfolderopen);
-  const folderArray = useStore((state) => state.folderArray);
 
-  useEffect(() => {
-    // console.log('folderArray', folderArray);
-  }, [folderArray]);
 
   return (
     <div className="folderpage w-4/5 flex flex-col relative h-full">

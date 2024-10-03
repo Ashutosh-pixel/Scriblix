@@ -5,21 +5,21 @@ export default function SearchBar() {
 
   const [newfolder, setNewfolder] = useState('')
 
-  
-  const folderArray = useStore((state) => state.folderArray);
+
+  // const folderArray = useStore((state) => state.folderArray);
   const addFolder = useStore((state) => state.addFolder);
 
   const handleNewFolder = () => {
     // console.log('newfolder', newfolder)
-    if(newfolder != ''){
+    if (newfolder != '') {
       addFolder(newfolder);
     }
     setNewfolder('');
   }
 
-  useEffect(() => {
-    console.log('folderArray', folderArray);
-  }, [folderArray])
+  // useEffect(() => {
+  //   console.log('folderArray', folderArray);
+  // }, [folderArray])
 
 
   return (
