@@ -11,6 +11,7 @@ export default function Categories() {
         {/* {folderArray.map((item, index) => {
             return <div key={index} style={{ backgroundColor: item === selectedcategory ? "lightgreen" : "" }}>{item}</div>
         })} */}
-        <NavLink to={'/folderpage'}>button</NavLink>
+        <NavLink to={'/folderpage'}>Folders</NavLink>
+        <NavLink to={'/notes'}>Notes</NavLink>
     </div>;
 }
